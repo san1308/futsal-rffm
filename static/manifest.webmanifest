@@ -1,0 +1,16 @@
+{
+  "name": "Futsal · Tercera FS",
+  "short_name": "Futsal",
+  "description": "Resultados, jornadas y clasificación de mi liga de fútbol sala (RFFM)",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#111317",
+  "theme_color": "#111317",
+  "lang": "es",
+  "icons": [
+    { "src": "/static/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/static/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/static/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

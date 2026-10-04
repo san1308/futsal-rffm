@@ -1,0 +1,307 @@
+{
+ "estado": "1",
+ "codacta": "5575892",
+ "nombre_competicion": "TERCERA DIVISIÓN FS",
+ "nombre_grupo": "Grupo 3",
+ "jornada": "2",
+ "fecha": "26-09-2026",
+ "hora": "19:00",
+ "campo": "P.M. PLATA Y CASTAÑAR (futbol sala)",
+ "acta_cerrada": "1",
+ "partido_en_juego": "0",
+ "codigo_equipo_local": "17149145",
+ "equipo_local": "FUTSALA VILLAVERDE 'A'",
+ "escudo_local": "/pnfg/pimg/Clubes/00100_0012179990_LOGO_NUEVO.jpeg?nova=1",
+ "goles_local": "6",
+ "codigo_equipo_visitante": "17146426",
+ "equipo_visitante": "C.D.E. CASCO ANTIGUO CARABANCHEL 'A'",
+ "escudo_visitante": "/pnfg/pimg/Clubes/00100_0012156631_Escudo_sin_fondo_AMPLIADO.png",
+ "goles_visitante": "2",
+ "hay_penaltis": "",
+ "penaltis_casa": "",
+ "penaltis_fuera": "",
+ "suspendido": "0",
+ "goles_equipo_local": [
+  {
+   "codjugador": "2800629",
+   "nombre_jugador": "RODRIGUEZ ORTIZ, RUBEN",
+   "minuto": "12",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2793194",
+   "nombre_jugador": "EL FTOUHI MUÑOZ, YOUSSEF",
+   "minuto": "34",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2802427",
+   "nombre_jugador": "fraczyk, KRYSTIAN",
+   "minuto": "37",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2800296",
+   "nombre_jugador": "LORENZO FERNANDEZ, ALVARO",
+   "minuto": "38",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2801106",
+   "nombre_jugador": "GARCIA FRANCHO, MARIO",
+   "minuto": "39",
+   "tipo_gol": "100"
+  }
+ ],
+ "goles_equipo_visitante": [
+  {
+   "codjugador": "2795693",
+   "nombre_jugador": "ELIAS NICOLAS, JESUS",
+   "minuto": "22",
+   "tipo_gol": "102"
+  },
+  {
+   "codjugador": "2801334",
+   "nombre_jugador": "SANCHEZ AREVALO CALDERON, SERGIO",
+   "minuto": "28",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2800236",
+   "nombre_jugador": "HERRERO TORRES, DAVID",
+   "minuto": "39",
+   "tipo_gol": "100"
+  }
+ ],
+ "delegadolocal": "",
+ "entrenador_local": " PEREZ SANCHEZ, CELSO",
+ "jugadores_equipo_local": [
+  {
+   "codjugador": "2800526",
+   "dorsal": "15",
+   "nombre_jugador": "JIMENEZ LOZANO, ADRIAN",
+   "titular": "1",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801591",
+   "dorsal": "25",
+   "nombre_jugador": "DE SANTIAGO NIETO, RUBEN",
+   "titular": "0",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2793194",
+   "dorsal": "4",
+   "nombre_jugador": "EL FTOUHI MUÑOZ, YOUSSEF",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800959",
+   "dorsal": "5",
+   "nombre_jugador": "GARCIA FRANCHO, DIEGO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800048",
+   "dorsal": "6",
+   "nombre_jugador": "GONZALEZ LOPEZ, IVAN",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800219",
+   "dorsal": "7",
+   "nombre_jugador": "CHIMENO OTERO, GUILLERMO",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2802427",
+   "dorsal": "8",
+   "nombre_jugador": "fraczyk, KRYSTIAN",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "1"
+  },
+  {
+   "codjugador": "2800296",
+   "dorsal": "9",
+   "nombre_jugador": "LORENZO FERNANDEZ, ALVARO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801032",
+   "dorsal": "10",
+   "nombre_jugador": "ATERIDO JIMENEZ, IVAN JOSE",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800214",
+   "dorsal": "16",
+   "nombre_jugador": "CEBRIAN ROMERO, JOSE",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800629",
+   "dorsal": "27",
+   "nombre_jugador": "RODRIGUEZ ORTIZ, RUBEN",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801106",
+   "dorsal": "40",
+   "nombre_jugador": "GARCIA FRANCHO, MARIO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "950829",
+   "dorsal": "80",
+   "nombre_jugador": "SALAZAR LOPEZ, JORGE",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  }
+ ],
+ "delegado_visitante": "",
+ "entrenador_visitante": "ULLOA ULLOA, JULIAN",
+ "jugadores_equipo_visitante": [
+  {
+   "codjugador": "2799670",
+   "dorsal": "13",
+   "nombre_jugador": "SANCHEZ NEGRO, ADRIAN",
+   "titular": "0",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800239",
+   "dorsal": "15",
+   "nombre_jugador": "NAVARRO DE LA ANTONIA, ANTONIO",
+   "titular": "0",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800636",
+   "dorsal": "25",
+   "nombre_jugador": "LLOPIS LEAL, ALEJANDRO",
+   "titular": "1",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2795693",
+   "dorsal": "6",
+   "nombre_jugador": "ELIAS NICOLAS, JESUS",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2802552",
+   "dorsal": "7",
+   "nombre_jugador": "RUMAYOR CAPA, JAIME",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800236",
+   "dorsal": "9",
+   "nombre_jugador": "HERRERO TORRES, DAVID",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "1"
+  },
+  {
+   "codjugador": "792667",
+   "dorsal": "10",
+   "nombre_jugador": "LAGO ZURDO, RAMIRO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800726",
+   "dorsal": "11",
+   "nombre_jugador": "MARTIN BARRANQUERO, ADRIAN",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801334",
+   "dorsal": "17",
+   "nombre_jugador": "SANCHEZ AREVALO CALDERON, SERGIO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801742",
+   "dorsal": "39",
+   "nombre_jugador": "CARPINTERO SANJUAN, IVAN",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2803752",
+   "dorsal": "60",
+   "nombre_jugador": "ALONSO LOPEZ-ADEVA, ALEJANDRO JAVIER",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  }
+ ],
+ "tarjetas_equipo_local": [],
+ "tarjetas_equipo_visitante": [
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2803752",
+   "segunda_amarilla": "0",
+   "minuto": "22",
+   "nombre_jugador": "ALONSO LOPEZ-ADEVA, ALEJANDRO JAVIER"
+  },
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "19882354",
+   "segunda_amarilla": "0",
+   "minuto": "31",
+   "nombre_jugador": "ULLOA ULLOA, JULIAN"
+  }
+ ],
+ "arbitros_partido": [
+  {
+   "tipo_arbitro": "ARBITRO",
+   "nombre_arbitro": "MORENO CUELLAR, JAVIER"
+  },
+  {
+   "tipo_arbitro": "ARBITRO",
+   "nombre_arbitro": "SANZ MAÑAS, EDUARDO"
+  },
+  {
+   "tipo_arbitro": "ARBITRO ASISTENTE",
+   "nombre_arbitro": "MORAN MUÑOZ, ALBERTO"
+  }
+ ]
+}

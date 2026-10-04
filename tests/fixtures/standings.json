@@ -1,0 +1,479 @@
+{
+ "estado": "1",
+ "sesion_ok": "1",
+ "competicion": "TERCERA DIVISIÓN FS",
+ "codigo_competicion": "26738221",
+ "grupo": "Grupo 3",
+ "codigo_grupo": "26771028",
+ "tipo_competicion": "2",
+ "jornada": "3",
+ "fecha_jornada": "03-10-2026",
+ "clasificacion": [
+  {
+   "color": "#55FFFE",
+   "posicion": "1",
+   "url_img": "/pnfg/pimg/Clubes/00100_0011024048_escudo.jpg?nova=1",
+   "codequipo": "21476533",
+   "nombre": "AGRUPACION AUTO-ESCUELA SIMANCAS - DYNAVIN 'A'",
+   "jugados": "3",
+   "ganados": "3",
+   "perdidos": "0",
+   "empatados": "0",
+   "goles_a_favor": "12",
+   "goles_en_contra": "5",
+   "puntos": "9",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "2",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012155817_Diagonalfondo_blanco2.png?nova=1",
+   "codequipo": "18378416",
+   "nombre": "F.S. DIAGONAL 'A'",
+   "jugados": "3",
+   "ganados": "2",
+   "perdidos": "0",
+   "empatados": "1",
+   "goles_a_favor": "21",
+   "goles_en_contra": "7",
+   "puntos": "7",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "E",
+     "color": "#D7DF01"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "3",
+   "url_img": "/pnfg/pimg/Clubes/00100_0011972491_eurosiris.png?nova=1",
+   "codequipo": "17210303",
+   "nombre": "CDE C.F.S. EUROSIRIS - BINGO LAS VEGAS 'A'",
+   "jugados": "3",
+   "ganados": "2",
+   "perdidos": "0",
+   "empatados": "1",
+   "goles_a_favor": "15",
+   "goles_en_contra": "7",
+   "puntos": "7",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "E",
+     "color": "#D7DF01"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "4",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012146202_logoadop.png?nova=1",
+   "codequipo": "17146989",
+   "nombre": "A.D. OBISPO PERELLO 'A'",
+   "jugados": "3",
+   "ganados": "2",
+   "perdidos": "0",
+   "empatados": "1",
+   "goles_a_favor": "17",
+   "goles_en_contra": "11",
+   "puntos": "7",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "E",
+     "color": "#D7DF01"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "5",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012191063_Escudo_pinar_24_25.png?nova=1",
+   "codequipo": "19128829",
+   "nombre": "C.D.E. PINAR DE SAN JOSE - ALCORCON 'A'",
+   "jugados": "3",
+   "ganados": "2",
+   "perdidos": "0",
+   "empatados": "1",
+   "goles_a_favor": "14",
+   "goles_en_contra": "9",
+   "puntos": "7",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "E",
+     "color": "#D7DF01"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "6",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012179990_LOGO_NUEVO.jpeg?nova=1",
+   "codequipo": "17149145",
+   "nombre": "FUTSALA VILLAVERDE 'A'",
+   "jugados": "3",
+   "ganados": "2",
+   "perdidos": "1",
+   "empatados": "0",
+   "goles_a_favor": "13",
+   "goles_en_contra": "7",
+   "puntos": "6",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "7",
+   "url_img": "/pnfg/pimg/Clubes/00100_0011611215_Logo.png?nova=1",
+   "codequipo": "19115935",
+   "nombre": "CDB SPORTING LAS AGUILAS DE MADRID - PARISAT 'A'",
+   "jugados": "3",
+   "ganados": "1",
+   "perdidos": "1",
+   "empatados": "1",
+   "goles_a_favor": "15",
+   "goles_en_contra": "9",
+   "puntos": "4",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "E",
+     "color": "#D7DF01"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "8",
+   "url_img": "/pnfg/pimg/Clubes/00100_0011037990_Escudo_nuevo_2_colores.jpg?nova=1",
+   "codequipo": "21476719",
+   "nombre": "ATLETICO TRABENCO ZARZAQUEMADA 'A'",
+   "jugados": "3",
+   "ganados": "1",
+   "perdidos": "1",
+   "empatados": "1",
+   "goles_a_favor": "12",
+   "goles_en_contra": "11",
+   "puntos": "4",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "E",
+     "color": "#D7DF01"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "9",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012166880_ESCUDO_ORIGINAL_FONDO_BLANCO.png?nova=1",
+   "codequipo": "18728976",
+   "nombre": "C.D.E. ANDRES SEGOVIA-MOSTOLES 'A'",
+   "jugados": "3",
+   "ganados": "1",
+   "perdidos": "2",
+   "empatados": "0",
+   "goles_a_favor": "7",
+   "goles_en_contra": "9",
+   "puntos": "3",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "10",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012156631_Escudo_sin_fondo_AMPLIADO.png?nova=1",
+   "codequipo": "17146426",
+   "nombre": "C.D.E. CASCO ANTIGUO CARABANCHEL 'A'",
+   "jugados": "3",
+   "ganados": "1",
+   "perdidos": "2",
+   "empatados": "0",
+   "goles_a_favor": "8",
+   "goles_en_contra": "11",
+   "puntos": "3",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "11",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012203154_ChatGPT_Image_17_jul_2026__01_40_48.png?nova=1",
+   "codequipo": "18310655",
+   "nombre": "CDE SPORTING MORATA F.S. 'A'",
+   "jugados": "3",
+   "ganados": "1",
+   "perdidos": "2",
+   "empatados": "0",
+   "goles_a_favor": "9",
+   "goles_en_contra": "13",
+   "puntos": "3",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "12",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012167978_1988_JVK_AZUL__1_.png?nova=1",
+   "codequipo": "18734838",
+   "nombre": "C.D.E. CIUDAD VILLA DE VALLECAS F.S.",
+   "jugados": "3",
+   "ganados": "1",
+   "perdidos": "2",
+   "empatados": "0",
+   "goles_a_favor": "6",
+   "goles_en_contra": "11",
+   "puntos": "3",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "13",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012155564_AF_Escudo_OK.png?nova=1",
+   "codequipo": "18439661",
+   "nombre": "CLUB ARGANDA FUTSAL - ALBERO-MUDANZAS SEGOVIANA 'A'",
+   "jugados": "3",
+   "ganados": "1",
+   "perdidos": "2",
+   "empatados": "0",
+   "goles_a_favor": "5",
+   "goles_en_contra": "12",
+   "puntos": "3",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "G",
+     "color": "#04B431"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    }
+   ]
+  },
+  {
+   "color": "",
+   "posicion": "14",
+   "url_img": "/pnfg/pimg/Clubes/00100_0000013482_Escudo_Don_Palpie.jpg?nova=1",
+   "codequipo": "18788907",
+   "nombre": "DON P'ALPIE ARANJUEZ F.S.- CAFETERIA LA TACITA",
+   "jugados": "3",
+   "ganados": "0",
+   "perdidos": "1",
+   "empatados": "2",
+   "goles_a_favor": "9",
+   "goles_en_contra": "11",
+   "puntos": "2",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "E",
+     "color": "#D7DF01"
+    },
+    {
+     "tipo": "E",
+     "color": "#D7DF01"
+    }
+   ]
+  },
+  {
+   "color": "#FF491C",
+   "posicion": "15",
+   "url_img": "/pnfg/pimg/Clubes/00100_0000002354_ESCUDO_Rivas_Futsal.jpg?nova=1",
+   "codequipo": "17145583",
+   "nombre": "CD RIVAS FUTSAL - YOUFIRST SMART FINACE",
+   "jugados": "3",
+   "ganados": "0",
+   "perdidos": "3",
+   "empatados": "0",
+   "goles_a_favor": "7",
+   "goles_en_contra": "21",
+   "puntos": "0",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    }
+   ]
+  },
+  {
+   "color": "#FF491C",
+   "posicion": "16",
+   "url_img": "/pnfg/pimg/Clubes/00100_0012155552_Escudo_Cde_La_Villa.png?nova=1",
+   "codequipo": "19131991",
+   "nombre": "C.D. LA VILLA MOSTOLES 'A'",
+   "jugados": "3",
+   "ganados": "0",
+   "perdidos": "3",
+   "empatados": "0",
+   "goles_a_favor": "7",
+   "goles_en_contra": "23",
+   "puntos": "0",
+   "puntos_sancion": "0",
+   "racha_partidos": [
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    },
+    {
+     "tipo": "P",
+     "color": "#FF0000"
+    }
+   ]
+  }
+ ],
+ "promociones": [],
+ "host": "https://appweb.rffm.es/"
+}

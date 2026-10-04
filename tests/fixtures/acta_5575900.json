@@ -1,0 +1,307 @@
+{
+ "estado": "1",
+ "codacta": "5575900",
+ "nombre_competicion": "TERCERA DIVISIÓN FS",
+ "nombre_grupo": "Grupo 3",
+ "jornada": "3",
+ "fecha": "03-10-2026",
+ "hora": "17:10",
+ "campo": "P.M. FRANCISCO FERNANDEZ OCHOA (futbol sala)",
+ "acta_cerrada": "1",
+ "partido_en_juego": "0",
+ "codigo_equipo_local": "17146426",
+ "equipo_local": "C.D.E. CASCO ANTIGUO CARABANCHEL 'A'",
+ "escudo_local": "/pnfg/pimg/Clubes/00100_0012156631_Escudo_sin_fondo_AMPLIADO.png",
+ "goles_local": "2",
+ "codigo_equipo_visitante": "17146989",
+ "equipo_visitante": "A.D. OBISPO PERELLO 'A'",
+ "escudo_visitante": "/pnfg/pimg/Clubes/00100_0012146202_logoadop.png?nova=1",
+ "goles_visitante": "3",
+ "hay_penaltis": "",
+ "penaltis_casa": "",
+ "penaltis_fuera": "",
+ "suspendido": "0",
+ "goles_equipo_local": [
+  {
+   "codjugador": "2800810",
+   "nombre_jugador": "DEL POZO GOMEZ, JAVIER",
+   "minuto": "20",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2795693",
+   "nombre_jugador": "ELIAS NICOLAS, JESUS",
+   "minuto": "37",
+   "tipo_gol": "100"
+  }
+ ],
+ "goles_equipo_visitante": [
+  {
+   "codjugador": "2800750",
+   "nombre_jugador": "CONCEJAL SAEZ, SERGIO",
+   "minuto": "3",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2801791",
+   "nombre_jugador": "MELIA GARCIA, ADRIAN",
+   "minuto": "10",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2800050",
+   "nombre_jugador": "CARVAJAL REYES, DAVID",
+   "minuto": "13",
+   "tipo_gol": "100"
+  }
+ ],
+ "delegadolocal": "NAVARRO TAJUELO, JUAN J",
+ "entrenador_local": " ULLOA ULLOA, JULIAN",
+ "jugadores_equipo_local": [
+  {
+   "codjugador": "2799670",
+   "dorsal": "13",
+   "nombre_jugador": "SANCHEZ NEGRO, ADRIAN",
+   "titular": "1",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800636",
+   "dorsal": "25",
+   "nombre_jugador": "LLOPIS LEAL, ALEJANDRO",
+   "titular": "0",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2795693",
+   "dorsal": "6",
+   "nombre_jugador": "ELIAS NICOLAS, JESUS",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "792667",
+   "dorsal": "10",
+   "nombre_jugador": "LAGO ZURDO, RAMIRO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800726",
+   "dorsal": "11",
+   "nombre_jugador": "MARTIN BARRANQUERO, ADRIAN",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800810",
+   "dorsal": "16",
+   "nombre_jugador": "DEL POZO GOMEZ, JAVIER",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801334",
+   "dorsal": "17",
+   "nombre_jugador": "SANCHEZ AREVALO CALDERON, SERGIO",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801742",
+   "dorsal": "39",
+   "nombre_jugador": "CARPINTERO SANJUAN, IVAN",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "1"
+  },
+  {
+   "codjugador": "2803752",
+   "dorsal": "60",
+   "nombre_jugador": "ALONSO LOPEZ-ADEVA, ALEJANDRO JAVIER",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  }
+ ],
+ "delegado_visitante": "DIAZ ALMENDRO, BORJA",
+ "entrenador_visitante": "MONZÓN GARCÍA, ÁLVARO",
+ "jugadores_equipo_visitante": [
+  {
+   "codjugador": "2801878",
+   "dorsal": "1",
+   "nombre_jugador": "PRADIES LAFFOND, CARLOS",
+   "titular": "0",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "12934382",
+   "dorsal": "18",
+   "nombre_jugador": "SORET ENCINAR, LUCAS",
+   "titular": "1",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "1105023",
+   "dorsal": "2",
+   "nombre_jugador": "DIAZ DEL PIE, YAGO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2802040",
+   "dorsal": "7",
+   "nombre_jugador": "OTERO DURAN, ALEJANDRO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "9545200",
+   "dorsal": "8",
+   "nombre_jugador": "SANCHEZ DE GRANDA, JORGE",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800497",
+   "dorsal": "10",
+   "nombre_jugador": "MAREQUE SEGURA, OCTAVIO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "27581731",
+   "dorsal": "11",
+   "nombre_jugador": "MARTIN SANZ, JUAN",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2799831",
+   "dorsal": "16",
+   "nombre_jugador": "AMADOR CASILLAS, MARIANO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800050",
+   "dorsal": "19",
+   "nombre_jugador": "CARVAJAL REYES, DAVID",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800750",
+   "dorsal": "20",
+   "nombre_jugador": "CONCEJAL SAEZ, SERGIO",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "1"
+  },
+  {
+   "codjugador": "2801791",
+   "dorsal": "22",
+   "nombre_jugador": "MELIA GARCIA, ADRIAN",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  }
+ ],
+ "tarjetas_equipo_local": [
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2795693",
+   "segunda_amarilla": "0",
+   "minuto": "6",
+   "nombre_jugador": "ELIAS NICOLAS, JESUS"
+  },
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2800636",
+   "segunda_amarilla": "0",
+   "minuto": "6",
+   "nombre_jugador": "LLOPIS LEAL, ALEJANDRO"
+  },
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2800810",
+   "segunda_amarilla": "0",
+   "minuto": "8",
+   "nombre_jugador": "DEL POZO GOMEZ, JAVIER"
+  },
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2803752",
+   "segunda_amarilla": "0",
+   "minuto": "36",
+   "nombre_jugador": "ALONSO LOPEZ-ADEVA, ALEJANDRO JAVIER"
+  },
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2800726",
+   "segunda_amarilla": "0",
+   "minuto": "40",
+   "nombre_jugador": "MARTIN BARRANQUERO, ADRIAN"
+  },
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2801742",
+   "segunda_amarilla": "0",
+   "minuto": "40",
+   "nombre_jugador": "CARPINTERO SANJUAN, IVAN"
+  }
+ ],
+ "tarjetas_equipo_visitante": [
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2802040",
+   "segunda_amarilla": "0",
+   "minuto": "6",
+   "nombre_jugador": "OTERO DURAN, ALEJANDRO"
+  },
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "1105023",
+   "segunda_amarilla": "0",
+   "minuto": "16",
+   "nombre_jugador": "DIAZ DEL PIE, YAGO"
+  },
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "12934382",
+   "segunda_amarilla": "0",
+   "minuto": "20",
+   "nombre_jugador": "SORET ENCINAR, LUCAS"
+  }
+ ],
+ "arbitros_partido": [
+  {
+   "tipo_arbitro": "ARBITRO",
+   "nombre_arbitro": "CASADO MOTA, ALVARO"
+  },
+  {
+   "tipo_arbitro": "ARBITRO",
+   "nombre_arbitro": "HERNANDEZ PINTO, ALEJANDRO"
+  },
+  {
+   "tipo_arbitro": "ARBITRO ASISTENTE",
+   "nombre_arbitro": "FERNANDEZ VALLE, ALBA"
+  }
+ ]
+}

@@ -1,0 +1,240 @@
+{
+ "estado": "1",
+ "codacta": "5575883",
+ "nombre_competicion": "TERCERA DIVISIÓN FS",
+ "nombre_grupo": "Grupo 3",
+ "jornada": "1",
+ "fecha": "19-09-2026",
+ "hora": "17:10",
+ "campo": "P.M. FRANCISCO FERNANDEZ OCHOA (futbol sala)",
+ "acta_cerrada": "1",
+ "partido_en_juego": "0",
+ "codigo_equipo_local": "17146426",
+ "equipo_local": "C.D.E. CASCO ANTIGUO CARABANCHEL 'A'",
+ "escudo_local": "/pnfg/pimg/Clubes/00100_0012156631_Escudo_sin_fondo_AMPLIADO.png",
+ "goles_local": "4",
+ "codigo_equipo_visitante": "18788907",
+ "equipo_visitante": "DON P'ALPIE ARANJUEZ F.S.- CAFETERIA LA TACITA ",
+ "escudo_visitante": "/pnfg/pimg/Clubes/00100_0000013482_Escudo_Don_Palpie.jpg?nova=1",
+ "goles_visitante": "2",
+ "hay_penaltis": "",
+ "penaltis_casa": "",
+ "penaltis_fuera": "",
+ "suspendido": "0",
+ "goles_equipo_local": [
+  {
+   "codjugador": "2800236",
+   "nombre_jugador": "HERRERO TORRES, DAVID",
+   "minuto": "4",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2800236",
+   "nombre_jugador": "HERRERO TORRES, DAVID",
+   "minuto": "5",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2803752",
+   "nombre_jugador": "ALONSO LOPEZ-ADEVA, ALEJANDRO JAVIER",
+   "minuto": "35",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2800236",
+   "nombre_jugador": "HERRERO TORRES, DAVID",
+   "minuto": "38",
+   "tipo_gol": "100"
+  }
+ ],
+ "goles_equipo_visitante": [
+  {
+   "codjugador": "2802158",
+   "nombre_jugador": "TORRES CHACON, ANGEL",
+   "minuto": "18",
+   "tipo_gol": "100"
+  },
+  {
+   "codjugador": "2801112",
+   "nombre_jugador": "VILLAREJO CESPEDES, RAUL",
+   "minuto": "26",
+   "tipo_gol": "100"
+  }
+ ],
+ "delegadolocal": "",
+ "entrenador_local": " ULLOA ULLOA, JULIAN",
+ "jugadores_equipo_local": [
+  {
+   "codjugador": "2799670",
+   "dorsal": "13",
+   "nombre_jugador": "SANCHEZ NEGRO, ADRIAN",
+   "titular": "1",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800239",
+   "dorsal": "15",
+   "nombre_jugador": "NAVARRO DE LA ANTONIA, ANTONIO",
+   "titular": "0",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2795693",
+   "dorsal": "6",
+   "nombre_jugador": "ELIAS NICOLAS, JESUS",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800236",
+   "dorsal": "9",
+   "nombre_jugador": "HERRERO TORRES, DAVID",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "1"
+  },
+  {
+   "codjugador": "792667",
+   "dorsal": "10",
+   "nombre_jugador": "LAGO ZURDO, RAMIRO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2800726",
+   "dorsal": "11",
+   "nombre_jugador": "MARTIN BARRANQUERO, ADRIAN",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801334",
+   "dorsal": "17",
+   "nombre_jugador": "SANCHEZ AREVALO CALDERON, SERGIO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801742",
+   "dorsal": "39",
+   "nombre_jugador": "CARPINTERO SANJUAN, IVAN",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2803752",
+   "dorsal": "60",
+   "nombre_jugador": "ALONSO LOPEZ-ADEVA, ALEJANDRO JAVIER",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  }
+ ],
+ "delegado_visitante": "GARCIA GOMEZ CUENCA, VICTOR",
+ "entrenador_visitante": "PUERTA RUBIO, ANGEL",
+ "jugadores_equipo_visitante": [
+  {
+   "codjugador": "2800781",
+   "dorsal": "18",
+   "nombre_jugador": "ALCOCER REDONDO, JORGE",
+   "titular": "1",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2803540",
+   "dorsal": "1",
+   "nombre_jugador": "DEL NUEVO MARTINEZ, JAVIER",
+   "titular": "0",
+   "portero": "1",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2801112",
+   "dorsal": "3",
+   "nombre_jugador": "VILLAREJO CESPEDES, RAUL",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2802158",
+   "dorsal": "5",
+   "nombre_jugador": "TORRES CHACON, ANGEL",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2771037",
+   "dorsal": "6",
+   "nombre_jugador": "GOMEZ CALATAYUD, DIMAS",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "1"
+  },
+  {
+   "codjugador": "2801692",
+   "dorsal": "7",
+   "nombre_jugador": "JIMENEZ SENOVILLA, OSCAR",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "23302910",
+   "dorsal": "9",
+   "nombre_jugador": "JAREÑO GONZALEZ, HUGO",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2805801",
+   "dorsal": "11",
+   "nombre_jugador": "HIJOSA ESPADA, DANIEL",
+   "titular": "0",
+   "portero": "0",
+   "capitan": "0"
+  },
+  {
+   "codjugador": "2775906",
+   "dorsal": "16",
+   "nombre_jugador": "JIMENEZ SENOVILLA, BORJA",
+   "titular": "1",
+   "portero": "0",
+   "capitan": "0"
+  }
+ ],
+ "tarjetas_equipo_local": [
+  {
+   "codigo_tipo_amonestacion": "100",
+   "codjugador": "2803752",
+   "segunda_amarilla": "0",
+   "minuto": "17",
+   "nombre_jugador": "ALONSO LOPEZ-ADEVA, ALEJANDRO JAVIER"
+  }
+ ],
+ "tarjetas_equipo_visitante": [],
+ "arbitros_partido": [
+  {
+   "tipo_arbitro": "ARBITRO",
+   "nombre_arbitro": "FERNANDEZ-TOSTADO VILLA, ISMAEL"
+  },
+  {
+   "tipo_arbitro": "ARBITRO",
+   "nombre_arbitro": "VAZQUEZ PEREZ, DAVID"
+  },
+  {
+   "tipo_arbitro": "ARBITRO ASISTENTE",
+   "nombre_arbitro": "SANCHEZ BOMBIN, ANA"
+  }
+ ]
+}

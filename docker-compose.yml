@@ -1,0 +1,13 @@
+services:
+  futsal:
+    build: .
+    image: futsal-rffm:latest
+    container_name: futsal-rffm
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      # Accesible en la LAN / Tailscale; fuera de casa se publica con Cloudflare Tunnel (ver README)
+      - "${PORT:-8090}:8000"
+    environment:
+      - TZ=Europe/Madrid
+    mem_limit: 256m

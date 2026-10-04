@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <rect width="512" height="512" rx="112" fill="#111317"/>
+  <!-- media pista de fútbol sala: área de 6 m y punto de penalti -->
+  <path d="M96 400h320" stroke="#ff6a1f" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <path d="M136 400a120 120 0 0 1 240 0" stroke="#ff6a1f" stroke-width="20" fill="none"/>
+  <circle cx="256" cy="186" r="84" fill="#f2efe9"/>
+  <path d="M256 140l38 28-14 44h-48l-14-44z" fill="#111317"/>
+  <path d="M256 140v-38M294 168l36-12M280 212l22 32M232 212l-22 32M218 168l-36-12" stroke="#111317" stroke-width="10" stroke-linecap="round"/>
+</svg>
