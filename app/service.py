@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import asyncio
 import re
-from datetime import datetime
+from datetime import date, datetime, timedelta
 from typing import Any
 
 from .cache import cache
@@ -83,7 +83,34 @@ def normalize_match(raw: dict[str, Any], jornada: int) -> dict[str, Any]:
     }
 
 
-def normalize_calendar(raw: dict[str, Any]) -> dict[str, Any]:
+def _round_end(r: dict[str, Any]) -> str | None:
+    """Último día de la semana de la jornada (los partidos aplazados a otra fecha no cuentan)."""
+    if not r["date"]:
+        return None
+    start = date.fromisoformat(r["date"])
+    week = [m["date"] for m in r["matches"]
+            if m["date"] and abs((date.fromisoformat(m["date"]) - start).days) <= 6]
+    return max([r["date"], *week])
+
+
+def current_round(rounds: list[dict[str, Any]], today: date | None = None) -> int:
+    """Jornada de esta semana: la primera que aún no ha terminado según el calendario.
+
+    Los partidos que se quedaron sin jugar no la "atascan": al pasar el fin de semana
+    de la jornada se salta a la siguiente. Sin fechas, la primera con partidos pendientes.
+    """
+    if not rounds:
+        return 1
+    today_s = (today or date.today()).isoformat()
+    dated = [(r["number"], _round_end(r)) for r in rounds]
+    if all(end for _, end in dated):
+        upcoming = [n for n, end in dated if end >= today_s]
+        return upcoming[0] if upcoming else rounds[-1]["number"]
+    pending = [r["number"] for r in rounds if any(x["status"] == "scheduled" for x in r["matches"])]
+    return min(pending) if pending else rounds[-1]["number"]
+
+
+def normalize_calendar(raw: dict[str, Any], today: date | None = None) -> dict[str, Any]:
     rounds = []
     for r in raw["rounds"]:
         n = _int(r.get("codjornada")) or len(rounds) + 1
@@ -94,9 +121,7 @@ def normalize_calendar(raw: dict[str, Any]) -> dict[str, Any]:
 
     played_rounds = [r["number"] for r in rounds if any(x["status"] == "played" for x in r["matches"])]
     last_played = max(played_rounds) if played_rounds else None
-    # Jornada "actual": la primera con partidos pendientes; si todo está jugado, la última
-    pending = [r["number"] for r in rounds if any(x["status"] == "scheduled" for x in r["matches"])]
-    current = min(pending) if pending else (rounds[-1]["number"] if rounds else 1)
+    current = current_round(rounds, today)
     return {
         "competition": raw.get("competicion"),
         "group": raw.get("grupo"),

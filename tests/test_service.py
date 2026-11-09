@@ -1,4 +1,5 @@
 import json
+from datetime import date
 from pathlib import Path
 
 import pytest
@@ -39,7 +40,7 @@ def test_short_name(raw, expected):
 
 
 def test_calendar_rounds_and_status():
-    cal = normalize_calendar(load("calendar.json"))
+    cal = normalize_calendar(load("calendar.json"), today=date(2026, 10, 6))
     assert [r["number"] for r in cal["rounds"]] == [1, 2, 3, 4, 5, 6]
     assert cal["lastPlayedRound"] == 3
     assert cal["currentRound"] == 4
@@ -50,6 +51,24 @@ def test_calendar_rounds_and_status():
     assert casco["date"] == "2026-10-03" and casco["time"] == "17:10"
     pend = next(m for m in cal["rounds"][3]["matches"] if m["id"] == "5575903")
     assert pend["status"] == "scheduled" and pend["time"] is None and pend["score"] is None
+
+
+@pytest.mark.parametrize(
+    "today, expected",
+    [
+        (date(2026, 10, 1), 3),   # entre semana antes de la J3
+        (date(2026, 10, 4), 3),   # domingo de la J3
+        (date(2026, 10, 5), 4),   # lunes siguiente
+        (date(2026, 10, 11), 4),  # domingo de la J4
+        # La J4 tiene partidos sin jugar: aun así, la semana siguiente toca la J5
+        (date(2026, 10, 14), 5),
+        (date(2026, 10, 20), 6),
+        (date(2026, 11, 9), 6),   # pasado el calendario: la última
+    ],
+)
+def test_current_round_follows_the_calendar(today, expected):
+    cal = normalize_calendar(load("calendar.json"), today=today)
+    assert cal["currentRound"] == expected
 
 
 def test_own_goal_counts_for_rival():
