@@ -2,12 +2,16 @@
 from __future__ import annotations
 
 import asyncio
+import logging
 import re
 from datetime import date, datetime, timedelta
 from typing import Any
 
 from .cache import cache
 from .config import settings
+from .rffm import RFFMError
+
+log = logging.getLogger(__name__)
 
 # --- Utilidades ----------------------------------------------------------
 
@@ -293,15 +297,30 @@ class Service:
         raw = await cache.get_or_fetch("calendar", self.client.calendar, settings.ttl_calendario)
         return normalize_calendar(raw)
 
-    async def standings(self, round_: int | None = None) -> dict[str, Any]:
-        if round_ is None:
-            cal = await self.calendar()
-            round_ = cal["lastPlayedRound"] or 1
+    async def _standings_raw(self, round_: int) -> dict[str, Any]:
         r = str(round_)
-        raw = await cache.get_or_fetch(
+        return await cache.get_or_fetch(
             f"standings:{r}", lambda: self.client.standings(r), settings.ttl_clasificacion
         )
-        return normalize_standings(raw)
+
+    async def standings(self, round_: int | None = None) -> dict[str, Any]:
+        if round_ is not None:
+            return normalize_standings(await self._standings_raw(round_))
+
+        # Sin jornada: la más reciente que tenga datos. La RFFM devuelve `null` en
+        # algunas jornadas y el calendario puede ir por detrás de la clasificación.
+        cal = await self.calendar()
+        last = cal["lastPlayedRound"] or 1
+        tried: list[int] = []
+        for rnd in (cal["currentRound"], last, last - 1):
+            if not rnd or rnd < 1 or rnd in tried:
+                continue
+            tried.append(rnd)
+            try:
+                return normalize_standings(await self._standings_raw(rnd))
+            except RFFMError:
+                log.info("Sin clasificación para la jornada %s, pruebo otra", rnd)
+        raise RFFMError(f"La RFFM no tiene clasificación (probadas las jornadas {tried})")
 
     async def scorers(self) -> list[dict[str, Any]]:
         raw = await cache.get_or_fetch("scorers", self.client.scorers, settings.ttl_goleadores)

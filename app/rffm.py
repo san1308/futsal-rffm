@@ -83,7 +83,11 @@ class RFFMClient:
         return cal
 
     async def standings(self, round_: str) -> dict[str, Any]:
-        return await self._json("/api/standings", {"idGroup": settings.grupo, "round": round_})
+        data = await self._json("/api/standings", {"idGroup": settings.grupo, "round": round_})
+        # Para algunas jornadas la RFFM responde 200 con cuerpo `null`
+        if not isinstance(data, dict) or not data.get("clasificacion"):
+            raise RFFMError(f"La RFFM no tiene clasificación de la jornada {round_}")
+        return data
 
     async def scorers(self) -> dict[str, Any]:
         return await self._json(

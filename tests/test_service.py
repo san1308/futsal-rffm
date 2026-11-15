@@ -148,3 +148,40 @@ async def test_live_client_with_mocked_rffm():
 def test_extract_next_data():
     html = '<html><script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps":{"x":1}}}</script></html>'
     assert extract_next_data(html)["props"]["pageProps"]["x"] == 1
+
+
+async def test_standings_salta_jornadas_sin_datos():
+    """La RFFM responde `null` en algunas jornadas: se usa la más reciente con datos."""
+    import httpx
+
+    from app.rffm import RFFMClient, RFFMError
+
+    cal = load("calendar.json")
+    pedidas = []
+    sin_datos: set[str] = set()
+
+    def page(props):
+        data = json.dumps({"props": {"pageProps": props}, "page": "/x", "buildId": "abc"})
+        return f'<html><body><script id="__NEXT_DATA__" type="application/json">{data}</script></body></html>'
+
+    def handler(req: httpx.Request):
+        p = req.url.path
+        if p == "/competicion/calendario":
+            return httpx.Response(200, text=page({"calendar": cal, "currentRound": "4"}))
+        if p == "/api/standings":
+            rnd = req.url.params["round"]
+            pedidas.append(rnd)
+            if rnd in sin_datos:
+                return httpx.Response(200, content=b"null", headers={"content-type": "application/json"})
+            return httpx.Response(200, json=load("standings.json"))
+        return httpx.Response(404)
+
+    client = RFFMClient(httpx.AsyncClient(base_url="https://www.rffm.es", transport=httpx.MockTransport(handler)))
+    s = Service(client)
+    c = await s.calendar()
+    actual, ultima = c["currentRound"], c["lastPlayedRound"]
+    sin_datos.update({str(actual), str(ultima)})
+    assert (await s.standings())["rows"][0]["points"] == 9
+    assert pedidas == [str(actual), str(ultima), str(ultima - 1)]
+    with pytest.raises(RFFMError):
+        await s.standings(ultima)
