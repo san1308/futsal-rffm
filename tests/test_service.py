@@ -100,6 +100,29 @@ async def test_team_view():
 
 
 @pytest.mark.asyncio
+async def test_score_from_acta_when_calendar_is_late():
+    """El calendario aún no tiene el resultado, pero el acta sí: se usa el del acta."""
+
+    class LateCalendar(DemoClient):
+        async def calendar(self):
+            cal = load("calendar.json")
+            for r in cal["rounds"]:
+                for m in r["equipos"]:
+                    if m["codacta"] == "5575900":
+                        m["goles_casa"] = m["goles_visitante"] = ""
+            return cal
+
+    s = Service(LateCalendar())
+    cal = await s.calendar(today=date(2026, 10, 6))
+    m = next(m for r in cal["rounds"] for m in r["matches"] if m["id"] == "5575900")
+    assert m["status"] == "played" and m["score"] == {"home": 2, "away": 3}
+    assert cal["lastPlayedRound"] == 3
+    # Partidos futuros o sin acta disponible siguen pendientes
+    j4 = next(r for r in cal["rounds"] if r["number"] == 4)
+    assert all(x["status"] == "scheduled" for x in j4["matches"])
+
+
+@pytest.mark.asyncio
 async def test_player_stats():
     s = Service(DemoClient())
     me = await s.player(YO, MI_EQUIPO)

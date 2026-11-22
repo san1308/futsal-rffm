@@ -247,7 +247,11 @@ def normalize_acta(raw: dict[str, Any]) -> dict[str, Any]:
             )
     events.sort(key=lambda e: (e["minute"] is None, e["minute"] or 0, e["type"] != "goal"))
 
-    played = gh is not None and ga is not None and (raw.get("acta_cerrada") == "1" or raw.get("partido_en_juego") == "1")
+    # Con resultado: acta cerrada, en juego, o abierta pero ya rellenada (alineaciones/goles).
+    filled = bool(raw.get("jugadores_equipo_local") or raw.get("goles_equipo_local") or raw.get("goles_equipo_visitante"))
+    played = gh is not None and ga is not None and raw.get("suspendido") != "1" and (
+        raw.get("acta_cerrada") == "1" or raw.get("partido_en_juego") == "1" or filled
+    )
     return {
         "id": raw.get("codacta"),
         "competition": raw.get("nombre_competicion"),
@@ -293,9 +297,41 @@ class Service:
     def __init__(self, client: Any) -> None:
         self.client = client
 
-    async def calendar(self) -> dict[str, Any]:
+    async def calendar(self, today: date | None = None) -> dict[str, Any]:
         raw = await cache.get_or_fetch("calendar", self.client.calendar, settings.ttl_calendario)
-        return normalize_calendar(raw)
+        cal = normalize_calendar(raw, today)
+        await self._scores_from_actas(cal, today or date.today())
+        return cal
+
+    async def _scores_from_actas(self, cal: dict[str, Any], today: date) -> None:
+        """El calendario de la RFFM tarda en poner los resultados, pero el acta ya los tiene.
+
+        Para los partidos de las últimas semanas que ya deberían haberse jugado y siguen
+        sin resultado, se mira su acta (cacheada) y se toma el marcador de ahí.
+        """
+        lo, hi = (today - timedelta(days=30)).isoformat(), today.isoformat()
+        pending = [
+            m for r in cal["rounds"] for m in r["matches"]
+            if m["status"] == "scheduled" and m["date"] and lo <= m["date"] <= hi
+        ]
+        if not pending:
+            return
+        sem = asyncio.Semaphore(4)  # no saturar a la RFFM
+
+        async def load(mid: str) -> dict[str, Any] | None:
+            async with sem:
+                try:
+                    return await self.match(mid)
+                except Exception:
+                    return None
+
+        for m, a in zip(pending, await asyncio.gather(*(load(m["id"]) for m in pending))):
+            if a and a["score"]:
+                m["score"] = a["score"]
+                m["status"] = "played"
+                m["live"] = a["live"]
+        played = [r["number"] for r in cal["rounds"] if any(x["status"] == "played" for x in r["matches"])]
+        cal["lastPlayedRound"] = max(played) if played else None
 
     async def _standings_raw(self, round_: int) -> dict[str, Any]:
         r = str(round_)
