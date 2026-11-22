@@ -394,7 +394,7 @@ function stepper(name, label, value, { nullable = false } = {}) {
 const toggle = (name, label, on) =>
   `<label class="field toggle"><span>${label}</span><input type="checkbox" name="${name}" ${on ? "checked" : ""}><i></i></label>`;
 
-function openEditor(g, onSaved) {
+function openEditor(g, needsKey, onSaved) {
   const dlg = document.createElement("dialog");
   dlg.className = "sheet";
   const m = g.match;
@@ -418,7 +418,7 @@ function openEditor(g, onSaved) {
       ${stepper("red", "Rojas", g.red)}
     </div>
     <p class="note">Según el acta: ${g.inActa ? esc(gameNote(g.acta)) : "no apareces en este partido"}.</p>
-    <div class="sheet__key ${getKey() ? "hidden" : ""}">
+    <div class="sheet__key ${!needsKey || getKey() ? "hidden" : ""}">
       <label class="field"><span>Clave de edición</span><input name="key" type="password" autocomplete="current-password"></label>
     </div>
     <p class="sheet__err" role="alert"></p>
@@ -450,7 +450,7 @@ function openEditor(g, onSaved) {
   const run = async (fn) => {
     err.textContent = "";
     if (f.key.value.trim()) setKey(f.key.value.trim());
-    if (!getKey()) {
+    if (needsKey && !getKey()) {
       dlg.querySelector(".sheet__key").classList.remove("hidden");
       err.textContent = "Escribe la clave de edición.";
       f.key.focus();
@@ -530,7 +530,7 @@ async function viewMe() {
     b.addEventListener("click", () => {
       const g = all.find((x) => x.match.id === b.dataset.edit);
       // "Añadirme" a un partido sin convocar: arranca como convocado
-      openEditor(g.called ? g : { ...g, called: true }, () => viewMe());
+      openEditor(g.called ? g : { ...g, called: true }, me.needsKey, () => viewMe());
     })
   );
 }

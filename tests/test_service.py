@@ -271,3 +271,21 @@ def test_edit_api(tmp_path, monkeypatch):
         g = next(x for x in me["games"] if x["match"]["id"] == "5575900")
         assert g["goals"] == 4 and g["assists"] == 2 and me["editable"]
         assert c.delete("/api/me/games/5575900", headers=h).status_code == 200
+
+
+def test_edit_api_without_key(tmp_path, monkeypatch):
+    import dataclasses
+
+    from fastapi.testclient import TestClient
+
+    import app.main as main
+    import app.service as service
+
+    test_settings = dataclasses.replace(main.settings, demo=True, edit_key="", stats_file=str(tmp_path / "s.json"))
+    monkeypatch.setattr(main, "settings", test_settings)
+    monkeypatch.setattr(service, "settings", test_settings)
+    with TestClient(main.app) as c:
+        assert c.put("/api/me/games/5575900", json={"conceded": 0}).status_code == 200
+        me = c.get("/api/me").json()
+        assert me["editable"] and not me["needsKey"]
+        assert c.delete("/api/me/games/5575900").status_code == 200

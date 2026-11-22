@@ -54,7 +54,7 @@ async def health():
 @app.get("/api/config")
 async def config():
     return {"myTeam": settings.mi_equipo, "myPlayer": settings.mi_jugador or None, "demo": settings.demo,
-            "editable": bool(settings.edit_key)}
+            "editable": True, "needsKey": bool(settings.edit_key)}
 
 
 @app.get("/api/calendar")
@@ -97,9 +97,7 @@ async def me():
 def _check_key(key: str | None) -> str:
     if not settings.mi_jugador:
         raise HTTPException(404, "MI_JUGADOR no configurado")
-    if not settings.edit_key:
-        raise HTTPException(403, "La edición está desactivada (falta EDIT_KEY en el .env)")
-    if not key or not hmac.compare_digest(key.encode(), settings.edit_key.encode()):
+    if settings.edit_key and (not key or not hmac.compare_digest(key.encode(), settings.edit_key.encode())):
         raise HTTPException(401, "Clave de edición incorrecta")
     return settings.mi_jugador
 

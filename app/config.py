@@ -32,7 +32,7 @@ class Settings:
     ttl_acta_abierta: int = int(_env("TTL_ACTA_ABIERTA", "300"))
     ttl_acta_cerrada: int = int(_env("TTL_ACTA_CERRADA", "604800"))
 
-    # Correcciones manuales de "Yo" (por partido). EDIT_KEY vacía = no se puede editar
+    # Correcciones manuales de "Yo" (por partido). EDIT_KEY vacía = se edita sin clave
     stats_file: str = _env("STATS_FILE", "data/stats.json")
     edit_key: str = _env("EDIT_KEY", "")
 

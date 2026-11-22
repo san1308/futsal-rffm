@@ -461,7 +461,8 @@ class Service:
             "totals": totals,
             "games": games[::-1],
             "others": others[::-1],  # partidos del equipo en los que no consto (para añadirme)
-            "editable": bool(self.store and settings.edit_key),
+            "editable": self.store is not None,
+            "needsKey": bool(settings.edit_key),
         }
 
 

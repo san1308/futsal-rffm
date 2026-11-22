@@ -12,7 +12,7 @@ Real Federación de Fútbol de Madrid: **Tercera División FS · Grupo 3 · 2026
 - **Yo**: mis números sacados de las actas (convocatorias, titularidades, goles encajados, porterías a 0…),
   corregibles partido a partido (goles, asistencias, tarjetas, encajados, titular/portero, convocado).
   Las correcciones se guardan en `data/stats.json` y mandan sobre el acta; "Volver al acta" las quita.
-  Editar pide la clave `EDIT_KEY` del `.env`.
+  Si pones `EDIT_KEY` en el `.env`, editar pide esa clave; vacía, se edita sin clave.
 - Instalable como app (PWA) y funciona sin cobertura con lo último cargado.
 
 ## Cómo saca los datos
@@ -79,7 +79,7 @@ uvicorn app.main:app --reload            # contra la RFFM de verdad
 ```
 
 API propia: `/api/calendar`, `/api/standings?round=N`, `/api/scorers`, `/api/match/{codacta}`,
-`/api/team/{id}`, `/api/me`, `PUT`/`DELETE /api/me/games/{codacta}` (cabecera `X-Edit-Key`), `POST /api/refresh` (vacía la caché). Docs en `/api/docs`.
+`/api/team/{id}`, `/api/me`, `PUT`/`DELETE /api/me/games/{codacta}` (cabecera `X-Edit-Key` si hay `EDIT_KEY`), `POST /api/refresh` (vacía la caché). Docs en `/api/docs`.
 
 ### Cambiar de temporada o de liga
 
