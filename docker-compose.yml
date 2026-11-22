@@ -8,6 +8,9 @@ services:
     ports:
       # Accesible en la LAN / Tailscale; fuera de casa se publica con Cloudflare Tunnel (ver README)
       - "${PORT:-8090}:8000"
+    volumes:
+      # Mis correcciones de "Yo" (stats.json): sobreviven a los rebuilds
+      - ./data:/app/data
     environment:
       - TZ=Europe/Madrid
     mem_limit: 256m

@@ -13,7 +13,7 @@ COPY app ./app
 COPY static ./static
 COPY tests/fixtures ./tests/fixtures
 
-RUN useradd --create-home --uid 1000 futsal
+RUN useradd --create-home --uid 1000 futsal && mkdir -p /app/data && chown futsal /app/data
 USER futsal
 
 EXPOSE 8000

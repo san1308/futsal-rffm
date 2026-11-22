@@ -208,3 +208,66 @@ async def test_standings_salta_jornadas_sin_datos():
     assert pedidas == [str(actual), str(ultima), str(ultima - 1)]
     with pytest.raises(RFFMError):
         await s.standings(ultima)
+
+
+@pytest.mark.asyncio
+async def test_player_stats_with_edits(tmp_path):
+    from app.store import StatsStore
+
+    store = StatsStore(tmp_path / "stats.json")
+    s = Service(DemoClient(), store)
+    base = await s.player(YO, MI_EQUIPO)
+    g = next(x for x in base["games"] if x["conceded"] is not None)
+    store.set(YO, g["match"]["id"], {**g["acta"], "conceded": g["acta"]["conceded"] + 1, "goals": 2, "assists": 1})
+
+    me = await s.player(YO, MI_EQUIPO)
+    tot = me["totals"]
+    assert tot["conceded"] == base["totals"]["conceded"] + 1
+    assert tot["goals"] == base["totals"]["goals"] + 2 - g["acta"]["goals"]
+    assert tot["assists"] == 1
+    edited = next(x for x in me["games"] if x["match"]["id"] == g["match"]["id"])
+    assert set(edited["edited"]) == {"conceded", "goals", "assists"}
+    assert edited["acta"] == g["acta"]  # lo del acta se conserva para poder volver
+
+    # Desconvocarme de un partido lo quita de los totales y lo pasa a "otros"
+    store.set(YO, g["match"]["id"], {"called": False})
+    me = await s.player(YO, MI_EQUIPO)
+    assert me["totals"]["called"] == base["totals"]["called"] - 1
+    assert any(x["match"]["id"] == g["match"]["id"] for x in me["others"])
+
+    store.delete(YO, g["match"]["id"])
+    assert (await s.player(YO, MI_EQUIPO))["totals"] == base["totals"]
+
+
+def test_store_validation(tmp_path):
+    from app.store import StatsStore
+
+    store = StatsStore(tmp_path / "stats.json")
+    for bad in ({"goals": -1}, {"goals": "3"}, {"called": 1}, {"hack": True}, {"goals": True}):
+        with pytest.raises(ValueError):
+            store.set(YO, "1", bad)
+    assert store.set(YO, "1", {"conceded": None, "goals": 3}) == {"conceded": None, "goals": 3}
+    assert StatsStore(tmp_path / "stats.json").for_player(YO) == {"1": {"conceded": None, "goals": 3}}
+
+
+def test_edit_api(tmp_path, monkeypatch):
+    import dataclasses
+
+    from fastapi.testclient import TestClient
+
+    import app.main as main
+    import app.service as service
+
+    test_settings = dataclasses.replace(main.settings, demo=True, edit_key="secreto", stats_file=str(tmp_path / "s.json"))
+    monkeypatch.setattr(main, "settings", test_settings)
+    monkeypatch.setattr(service, "settings", test_settings)
+    with TestClient(main.app) as c:
+        assert c.put("/api/me/games/5575900", json={"goals": 1}).status_code == 401
+        assert c.put("/api/me/games/5575900", json={"goals": 1}, headers={"X-Edit-Key": "mal"}).status_code == 401
+        h = {"X-Edit-Key": "secreto"}
+        assert c.put("/api/me/games/5575900", json={"goals": -2}, headers=h).status_code == 422
+        assert c.put("/api/me/games/5575900", json={"goals": 4, "assists": 2}, headers=h).status_code == 200
+        me = c.get("/api/me").json()
+        g = next(x for x in me["games"] if x["match"]["id"] == "5575900")
+        assert g["goals"] == 4 and g["assists"] == 2 and me["editable"]
+        assert c.delete("/api/me/games/5575900", headers=h).status_code == 200

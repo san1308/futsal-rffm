@@ -1,12 +1,13 @@
 """API propia + frontend estático."""
 from __future__ import annotations
 
+import hmac
 import logging
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 import httpx
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, Header, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -14,6 +15,7 @@ from .cache import cache
 from .config import settings
 from .rffm import DemoClient, RFFMClient, RFFMError
 from .service import Service
+from .store import StatsStore
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
 STATIC = Path(__file__).resolve().parent.parent / "static"
@@ -22,7 +24,7 @@ STATIC = Path(__file__).resolve().parent.parent / "static"
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     client = DemoClient() if settings.demo else RFFMClient()
-    app.state.service = Service(client)
+    app.state.service = Service(client, StatsStore(settings.stats_file))
     yield
     await client.aclose()
 
@@ -51,7 +53,8 @@ async def health():
 
 @app.get("/api/config")
 async def config():
-    return {"myTeam": settings.mi_equipo, "myPlayer": settings.mi_jugador or None, "demo": settings.demo}
+    return {"myTeam": settings.mi_equipo, "myPlayer": settings.mi_jugador or None, "demo": settings.demo,
+            "editable": bool(settings.edit_key)}
 
 
 @app.get("/api/calendar")
@@ -89,6 +92,42 @@ async def me():
     if not settings.mi_jugador:
         raise HTTPException(404, "MI_JUGADOR no configurado")
     return await svc().player(settings.mi_jugador, settings.mi_equipo)
+
+
+def _check_key(key: str | None) -> str:
+    if not settings.mi_jugador:
+        raise HTTPException(404, "MI_JUGADOR no configurado")
+    if not settings.edit_key:
+        raise HTTPException(403, "La edición está desactivada (falta EDIT_KEY en el .env)")
+    if not key or not hmac.compare_digest(key.encode(), settings.edit_key.encode()):
+        raise HTTPException(401, "Clave de edición incorrecta")
+    return settings.mi_jugador
+
+
+@app.post("/api/me/check")
+async def me_check(x_edit_key: str | None = Header(default=None)):
+    _check_key(x_edit_key)
+    return {"ok": True}
+
+
+@app.put("/api/me/games/{match_id}")
+async def me_edit(match_id: str, body: dict, x_edit_key: str | None = Header(default=None)):
+    """Guarda mis números reales de un partido (sustituyen a los del acta)."""
+    player = _check_key(x_edit_key)
+    if not match_id.isdigit():
+        raise HTTPException(400, "Código de acta no válido")
+    try:
+        saved = svc().store.set(player, match_id, body)
+    except ValueError as e:
+        raise HTTPException(422, str(e))
+    return {"ok": True, "saved": saved}
+
+
+@app.delete("/api/me/games/{match_id}")
+async def me_reset(match_id: str, x_edit_key: str | None = Header(default=None)):
+    """Vuelve a lo que diga el acta para ese partido."""
+    svc().store.delete(_check_key(x_edit_key), match_id)
+    return {"ok": True}
 
 
 @app.post("/api/refresh")

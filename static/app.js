@@ -341,17 +341,165 @@ async function viewMatch(id) {
     </dl>`;
 }
 
+// ---------- Yo: mis números, editables por partido --------------------------
+const KEY_STORE = "futsal-edit-key";
+const getKey = () => { try { return localStorage.getItem(KEY_STORE) || ""; } catch { return ""; } };
+const setKey = (k) => { try { k ? localStorage.setItem(KEY_STORE, k) : localStorage.removeItem(KEY_STORE); } catch {} };
+const FIELD_LABEL = { called: "convocatoria", starter: "titularidad", goalkeeper: "portería", goals: "goles",
+  assists: "asistencias", yellow: "amarillas", red: "rojas", conceded: "encajados" };
+
+async function writeGame(method, matchId, body) {
+  const r = await fetch(`/api/me/games/${matchId}`, {
+    method,
+    headers: { "Content-Type": "application/json", "X-Edit-Key": getKey() },
+    body: body ? JSON.stringify(body) : undefined,
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw Object.assign(new Error(data.detail || `Error ${r.status}`), { status: r.status });
+  return data;
+}
+
+function gameNote(g) {
+  return [
+    g.starter ? "Titular" : "Suplente",
+    g.goalkeeper ? "Portero" : "",
+    g.conceded != null ? `${g.conceded} encajado${g.conceded === 1 ? "" : "s"}` : "",
+    g.goals ? `${g.goals} gol${g.goals > 1 ? "es" : ""}` : "",
+    g.assists ? `${g.assists} asist.` : "",
+    g.yellow ? `${g.yellow} amarilla${g.yellow > 1 ? "s" : ""}` : "",
+    g.red ? `${g.red} roja${g.red > 1 ? "s" : ""}` : "",
+  ].filter(Boolean).join(" · ");
+}
+
+function gameItem(g, editable, { add = false } = {}) {
+  const tag = g.edited.length
+    ? `<span class="game__tag" title="Cambiado respecto al acta: ${esc(g.edited.map((k) => FIELD_LABEL[k]).join(", "))}">Corregido</span>`
+    : !g.inActa && g.called ? `<span class="game__tag">Añadido a mano</span>` : "";
+  const btn = editable
+    ? `<button class="game__edit" data-edit="${esc(g.match.id)}">${add ? "Añadirme" : "Editar"}</button>` : "";
+  return `<div class="game">${matchRow(g.match, { showDate: true, result: g.result, note: add ? "" : gameNote(g) })}
+    ${tag || btn ? `<div class="game__bar">${tag || "<span></span>"}${btn}</div>` : ""}</div>`;
+}
+
+function stepper(name, label, value, { nullable = false } = {}) {
+  const v = value ?? "";
+  return `<div class="field">
+    <span>${label}</span>
+    <div class="stepper">
+      <button type="button" data-step="-1" aria-label="Menos ${label}">−</button>
+      <input name="${name}" type="number" inputmode="numeric" min="0" max="99" value="${v}" ${nullable ? 'placeholder="–"' : ""}>
+      <button type="button" data-step="1" aria-label="Más ${label}">+</button>
+    </div></div>`;
+}
+const toggle = (name, label, on) =>
+  `<label class="field toggle"><span>${label}</span><input type="checkbox" name="${name}" ${on ? "checked" : ""}><i></i></label>`;
+
+function openEditor(g, onSaved) {
+  const dlg = document.createElement("dialog");
+  dlg.className = "sheet";
+  const m = g.match;
+  const rival = m.home.mine ? m.away.short : m.home.short;
+  const canReset = g.edited.length || (!g.inActa && g.called);
+  dlg.innerHTML = `<form>
+    <header class="sheet__head">
+      <div><h2>${m.home.mine ? "vs" : "en"} ${esc(rival)}</h2>
+      <p>${fmtDay(m.date)} · ${m.score.home}–${m.score.away}</p></div>
+      <button type="button" class="sheet__x" data-close aria-label="Cerrar">×</button>
+    </header>
+    ${toggle("called", "Convocado", g.called)}
+    <div class="sheet__body">
+      ${toggle("starter", "Titular", g.starter)}
+      ${toggle("goalkeeper", "Portero", g.goalkeeper)}
+      <div class="gk-only">${stepper("conceded", "Encajados", g.conceded, { nullable: true })}
+        <p class="note">Vacío si no estuviste en la portería.</p></div>
+      ${stepper("goals", "Goles", g.goals)}
+      ${stepper("assists", "Asistencias", g.assists)}
+      ${stepper("yellow", "Amarillas", g.yellow)}
+      ${stepper("red", "Rojas", g.red)}
+    </div>
+    <p class="note">Según el acta: ${g.inActa ? esc(gameNote(g.acta)) : "no apareces en este partido"}.</p>
+    <div class="sheet__key ${getKey() ? "hidden" : ""}">
+      <label class="field"><span>Clave de edición</span><input name="key" type="password" autocomplete="current-password"></label>
+    </div>
+    <p class="sheet__err" role="alert"></p>
+    <div class="sheet__actions">
+      ${canReset ? `<button type="button" class="btn btn--ghost" data-reset>Volver al acta</button>` : "<span></span>"}
+      <button type="submit" class="btn">Guardar</button>
+    </div>
+  </form>`;
+  document.body.append(dlg);
+  const f = dlg.querySelector("form");
+  const err = dlg.querySelector(".sheet__err");
+  const sync = () => {
+    dlg.querySelector(".sheet__body").classList.toggle("off", !f.called.checked);
+    dlg.querySelector(".gk-only").classList.toggle("hidden", !f.goalkeeper.checked);
+  };
+  sync();
+  f.addEventListener("change", sync);
+  f.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-step]");
+    if (b) {
+      const input = b.parentElement.querySelector("input");
+      input.value = Math.min(99, Math.max(0, (parseInt(input.value, 10) || 0) + Number(b.dataset.step)));
+    }
+    if (e.target.closest("[data-close]")) dlg.close();
+  });
+  dlg.addEventListener("close", () => dlg.remove());
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+
+  const run = async (fn) => {
+    err.textContent = "";
+    if (f.key.value.trim()) setKey(f.key.value.trim());
+    if (!getKey()) {
+      dlg.querySelector(".sheet__key").classList.remove("hidden");
+      err.textContent = "Escribe la clave de edición.";
+      f.key.focus();
+      return;
+    }
+    const buttons = [...f.querySelectorAll("button")];
+    buttons.forEach((b) => (b.disabled = true));
+    try {
+      await fn();
+      dlg.close();
+      onSaved();
+    } catch (e) {
+      if (e.status === 401) {
+        setKey("");
+        f.key.value = "";
+        dlg.querySelector(".sheet__key").classList.remove("hidden");
+      }
+      err.textContent = e.message;
+    } finally {
+      buttons.forEach((b) => (b.disabled = false));
+    }
+  };
+  f.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const num = (n) => Math.min(99, Math.max(0, parseInt(f[n].value, 10) || 0));
+    const called = f.called.checked;
+    const gk = called && f.goalkeeper.checked;
+    const body = called
+      ? { called, starter: f.starter.checked, goalkeeper: gk, goals: num("goals"), assists: num("assists"),
+          yellow: num("yellow"), red: num("red"), conceded: gk && f.conceded.value !== "" ? num("conceded") : null }
+      : { called: false };
+    run(() => writeGame("PUT", m.id, body));
+  });
+  dlg.querySelector("[data-reset]")?.addEventListener("click", () => run(() => writeGame("DELETE", m.id)));
+  dlg.showModal();
+}
+
 async function viewMe() {
   if (!CONFIG.myPlayer) {
     $view.innerHTML = `<div class="empty card">Configura <code>MI_JUGADOR</code> en el .env para ver tus números.</div>`;
     return;
   }
   $view.innerHTML = skeleton(3);
-  const me = await api("/me");
+  const me = await api("/me", { fresh: true });
   const t = me.totals;
   const last = me.games[0];
   const nums = [...new Set(me.games.map((g) => g.number).filter(Boolean))];
   const avg = t.gkGames ? (t.conceded / t.gkGames).toFixed(1) : "–";
+  const edited = me.games.filter((g) => g.edited.length || !g.inActa).length;
   const stat = (v, l, hl = false) => `<div class="card stat ${hl ? "hl" : ""}"><b class="num">${v}</b><span>${l}</span></div>`;
   $view.innerHTML = `
     <section class="card me-head">
@@ -366,22 +514,25 @@ async function viewMe() {
       ${stat(`${t.wins}-${t.draws}-${t.losses}`, "G-E-P")}
       ${t.gkGames ? stat(t.conceded, "Encajados") + stat(avg, "Por partido") + stat(t.cleanSheets, "Porterías a 0", true) : ""}
       ${stat(t.goals, "Goles")}
+      ${stat(t.assists, "Asistencias")}
       ${stat(t.yellow, "Amarillas")}
       ${stat(t.red, "Rojas")}
     </div>
-    ${t.gkGames ? `<p class="note">Goles encajados contados en los partidos que empezaste de titular (el acta no indica minutos jugados).</p>` : ""}
+    <p class="note">${edited ? `Incluye tus correcciones en ${edited} partido${edited > 1 ? "s" : ""}. ` : ""}${
+      me.editable ? "Si el acta no cuadra, pulsa Editar en el partido." : "Sacado de las actas: encajados solo cuando empezaste de titular en la portería."}</p>
     ${me.games.length ? `<div class="section"><h2>Partido a partido</h2></div>
-      <div class="card matches">${me.games
-        .map((g) => {
-          const extra = [
-            g.starter ? "Titular" : "Suplente",
-            g.conceded != null ? `${g.conceded} encajado${g.conceded === 1 ? "" : "s"}` : "",
-            g.goals ? `${g.goals} gol${g.goals > 1 ? "es" : ""}` : "",
-            ...g.cards.map((c) => ({ yellow: "Amarilla", red: "Roja", second_yellow: "Doble amarilla" })[c]),
-          ].filter(Boolean).join(" · ");
-          return matchRow(g.match, { showDate: true, result: g.result, note: extra });
-        })
-        .join("")}</div>` : '<div class="empty">Aún no apareces en ningún acta.</div>'}`;
+      <div class="card matches">${me.games.map((g) => gameItem(g, me.editable)).join("")}</div>` : '<div class="empty">Aún no apareces en ningún partido.</div>'}
+    ${me.editable && me.others.length ? `<div class="section"><h2>Sin convocar</h2></div>
+      <div class="card matches">${me.others.map((g) => gameItem(g, true, { add: true })).join("")}</div>` : ""}`;
+
+  const all = [...me.games, ...me.others];
+  $view.querySelectorAll("[data-edit]").forEach((b) =>
+    b.addEventListener("click", () => {
+      const g = all.find((x) => x.match.id === b.dataset.edit);
+      // "Añadirme" a un partido sin convocar: arranca como convocado
+      openEditor(g.called ? g : { ...g, called: true }, () => viewMe());
+    })
+  );
 }
 
 // ---------- router ----------------------------------------------------------

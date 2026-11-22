@@ -1,5 +1,5 @@
 // Network-first: si en el pabellón no hay cobertura, enseña lo último que se cargó.
-const CACHE = "futsal-v1";
+const CACHE = "futsal-v2";
 const SHELL = ["/", "/static/styles.css", "/static/app.js", "/static/icon.svg", "/manifest.webmanifest"];
 
 self.addEventListener("install", (e) => {

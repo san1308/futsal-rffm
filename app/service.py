@@ -294,8 +294,9 @@ def normalize_acta(raw: dict[str, Any]) -> dict[str, Any]:
 # --- Servicio ------------------------------------------------------------
 
 class Service:
-    def __init__(self, client: Any) -> None:
+    def __init__(self, client: Any, store: Any = None) -> None:
         self.client = client
+        self.store = store  # StatsStore con mis correcciones (None = solo actas)
 
     async def calendar(self, today: date | None = None) -> dict[str, Any]:
         raw = await cache.get_or_fetch("calendar", self.client.calendar, settings.ttl_calendario)
@@ -399,7 +400,7 @@ class Service:
         }
 
     async def player(self, player_id: str, team_id: str) -> dict[str, Any]:
-        """Estadísticas personales sacadas de las actas de los partidos ya jugados."""
+        """Mis estadísticas: lo que dice cada acta, corregido con lo que he editado a mano."""
         cal = await self.calendar()
         played = [
             m
@@ -417,49 +418,71 @@ class Service:
                     return None
 
         actas = await asyncio.gather(*(load(m["id"]) for m in played))
-        name, games = None, []
-        totals = {"called": 0, "starts": 0, "goals": 0, "yellow": 0, "red": 0, "conceded": 0,
+        edits = self.store.for_player(player_id) if self.store else {}
+        name, games, others = None, [], []
+        totals = {"called": 0, "starts": 0, "goals": 0, "assists": 0, "yellow": 0, "red": 0, "conceded": 0,
                   "gkGames": 0, "cleanSheets": 0, "wins": 0, "draws": 0, "losses": 0}
         for m, a in zip(played, actas):
-            if not a:
-                continue
-            side = "home" if a["home"]["id"] == team_id else "away"
+            side = "home" if m["home"]["id"] == team_id else "away"
             other = "away" if side == "home" else "home"
-            me = next((p for p in a["lineups"][side]["players"] if p["id"] == player_id), None)
-            if not me:
-                continue
-            name = name or me["name"]
-            goals = sum(1 for e in a["events"] if e["type"] == "goal" and e["playerId"] == player_id and not e["ownGoal"])
-            cards = [e["type"] for e in a["events"] if e["playerId"] == player_id and e["type"] != "goal"]
-            conceded = (a["score"] or {}).get(other) if a["score"] else None
+            me = next((p for p in a["lineups"][side]["players"] if p["id"] == player_id), None) if a else None
+            if me:
+                name = name or me["name"]
+            acta = player_from_acta(a, me, player_id, other)
+            edit = edits.get(m["id"], {})
+            g = {**acta, **edit}
             res = result_for(m, team_id)
+            row = {
+                "match": m,
+                "number": me["number"] if me else None,
+                "captain": bool(me and me["captain"]),
+                **g,
+                "result": res,
+                "inActa": me is not None,
+                "acta": acta,
+                "edited": sorted(k for k in edit if edit[k] != acta.get(k)),
+            }
+            if not g["called"]:
+                others.append(row)
+                continue
             totals["called"] += 1
-            totals["starts"] += me["starter"]
-            totals["goals"] += goals
-            totals["yellow"] += sum(c in ("yellow", "second_yellow") for c in cards)
-            totals["red"] += sum(c in ("red", "second_yellow") for c in cards)
+            totals["starts"] += g["starter"]
+            for k in ("goals", "assists", "yellow", "red"):
+                totals[k] += g[k]
             totals[{"G": "wins", "E": "draws", "P": "losses"}[res]] += 1
-            # El acta no trae minutos jugados: los goles encajados solo se cuentan
-            # en los partidos que empezaste de titular como portero.
-            if me["goalkeeper"] and me["starter"]:
+            if g["conceded"] is not None:
                 totals["gkGames"] += 1
-                totals["conceded"] += conceded or 0
-                totals["cleanSheets"] += conceded == 0
-            games.append(
-                {
-                    "match": m,
-                    "number": me["number"],
-                    "starter": me["starter"],
-                    "goalkeeper": me["goalkeeper"],
-                    "captain": me["captain"],
-                    "goals": goals,
-                    "cards": cards,
-                    "conceded": conceded if (me["goalkeeper"] and me["starter"]) else None,
-                    "result": res,
-                }
-            )
-        return {"playerId": player_id, "name": name, "totals": totals, "games": games[::-1]}
+                totals["conceded"] += g["conceded"]
+                totals["cleanSheets"] += g["conceded"] == 0
+            games.append(row)
+        return {
+            "playerId": player_id,
+            "name": name,
+            "totals": totals,
+            "games": games[::-1],
+            "others": others[::-1],  # partidos del equipo en los que no consto (para añadirme)
+            "editable": bool(self.store and settings.edit_key),
+        }
 
+
+def player_from_acta(a: dict[str, Any] | None, me: dict[str, Any] | None, player_id: str, other: str) -> dict[str, Any]:
+    """Mis números de un partido según el acta (o vacíos si no aparezco)."""
+    if not me:
+        return {"called": False, "starter": False, "goalkeeper": False, "goals": 0, "assists": 0,
+                "yellow": 0, "red": 0, "conceded": None}
+    cards = [e["type"] for e in a["events"] if e["playerId"] == player_id and e["type"] != "goal"]
+    # El acta no trae minutos jugados: los encajados solo se cuentan si empecé de titular en la portería.
+    gk_start = me["goalkeeper"] and me["starter"]
+    return {
+        "called": True,
+        "starter": me["starter"],
+        "goalkeeper": me["goalkeeper"],
+        "goals": sum(1 for e in a["events"] if e["type"] == "goal" and e["playerId"] == player_id and not e["ownGoal"]),
+        "assists": 0,  # el acta no las recoge
+        "yellow": sum(c in ("yellow", "second_yellow") for c in cards),
+        "red": sum(c in ("red", "second_yellow") for c in cards),
+        "conceded": ((a["score"] or {}).get(other) or 0) if gk_start and a["score"] else None,
+    }
 
 def result_for(m: dict[str, Any], team_id: str) -> str | None:
     if m["status"] != "played":
